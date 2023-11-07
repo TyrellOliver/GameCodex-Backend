@@ -11,20 +11,23 @@ const getAllGames = async () => {
 };
 
 // GET - Getting one gane from the database
-const getGame = async () => {
+const getGame = async (id) => {
   try {
-    
+    const oneGame = await db.one('SELECT * FROM games WHERE id=$1', id);
+    return oneGame;
   } catch (error) {
-
+    return error;
   }
 };
 
 // POST - Creating a game to add to the database
-const createGame = async () => {
+const createGame = async (game) => {
   try {
-
+    const newGame = await db.one("INSERT INTO games ( name, release_year, genre, rating, discontinued, game_studio, system ) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *", [game.name, game.release_year, game.genre, game.rating, game.discontinued, game.game_studio, game.system ]
+    );
+    return newGame;
   } catch (error) {
-
+    return error;
   }
 };
 
@@ -47,5 +50,9 @@ const updateGame = async () => {
 };
 
 module.exports = {
-  getAllGames
+  getAllGames,
+  getGame,
+  createGame,
+  deleteGame,
+  updateGame
 };
