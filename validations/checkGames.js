@@ -31,12 +31,12 @@ const checkRating = (req, res, next) => {
 };
 
 const checkBoolean = (req, res, next) => {
-    const discont = req.body.discontinued;
-    if (typeof discont === "boolean") {
-      next();
-    } else {
-      res.status(400).json({ error: "discontinued must be type boolean" });
-    }
+  const discont = req.body.discontinued;
+  if (typeof discont === "boolean") {
+    next();
+  } else {
+    res.status(400).json({ error: "discontinued must be type boolean" });
+  }
 };
 
 const checkGameStudio = (req, res, next) => {
