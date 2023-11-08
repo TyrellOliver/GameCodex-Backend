@@ -14,6 +14,7 @@ const {
   checkRating,
   checkBoolean,
   checkGameStudio,
+  checkSystem,
 } = require("../validations/checkGames");
 
 // INDEX/GET - all video games
@@ -46,6 +47,7 @@ games.post(
   checkRating,
   checkBoolean,
   checkGameStudio,
+  checkSystem,
   async (req, res) => {
     const body = req.body;
     const game = await createGame(body);
@@ -76,7 +78,8 @@ games.put(
   async (req, res) => {
     const { id } = req.params;
     const body = req.body;
-    const updatedGame = await updateGame(id, body);
+    const updatedGame = await updateGame(+id, body);
+    console.log(updatedGame);
     if (updatedGame.id) {
       res.status(200).json(updatedGame);
     } else {
