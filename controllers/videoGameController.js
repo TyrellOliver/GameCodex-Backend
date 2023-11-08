@@ -27,6 +27,7 @@ games.get("/", async (req, res) => {
   }
 });
 
+//SHOW/GET - one game
 games.get("/:id", async (req, res) => {
   const { id } = req.params;
   const oneGame = await getGame(id);
@@ -37,6 +38,7 @@ games.get("/:id", async (req, res) => {
   }
 });
 
+// CREATE/POST - creating a new game
 games.post(
   "/",
   checkName,
@@ -53,6 +55,7 @@ games.post(
   }
 );
 
+// DESTROY/DELETE - deleting a game
 games.delete("/:id", async (req, res) => {
   const { id } = req.params;
   const deletedGame = await deleteGame(id);
@@ -63,16 +66,26 @@ games.delete("/:id", async (req, res) => {
   }
 });
 
-games.put("/:id", async (req, res) => {
-  const body = req.body;
-  const { id } = req.params;
-  const updatedGame = await updateGame(+id, body);
-  console.log(updatedGame);
-  if (updatedGame.id) {
-    res.status(200).json(updatedGame);
-  } else {
-    res.status(404).json({ error: "Game not Found " });
+// UPDATE/PUT - updating a game
+games.put(
+  "/:id",
+  checkName,
+  checkBoolean,
+  checkGenre,
+  checkRating,
+  checkBoolean,
+  checkGameStudio,
+  async (req, res) => {
+    const { id } = req.params;
+    const body = req.body;
+    const updatedGame = await updateGame(+id, body);
+    console.log(updatedGame);
+    if (updatedGame.id) {
+      res.status(200).json(updatedGame);
+    } else {
+      res.status(404).json({ error: "Game not Found " });
+    }
   }
-});
+);
 
 module.exports = games;

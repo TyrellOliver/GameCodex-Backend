@@ -8,7 +8,7 @@ const checkName = (req, res, next) => {
 
 const checkReleaseYear = (req, res, next) => {
   if (req.body.release_year) {
-    return next;
+    return next();
   } else {
     res.status(400).json({ error: "Release Year is required" });
   }
@@ -16,7 +16,7 @@ const checkReleaseYear = (req, res, next) => {
 
 const checkGenre = (req, res, next) => {
   if (req.body.genre) {
-    return next;
+    return next();
   } else {
     res.status(400).json({ error: "Genre is required" });
   }
@@ -24,23 +24,24 @@ const checkGenre = (req, res, next) => {
 
 const checkRating = (req, res, next) => {
   if (req.body.rating) {
-    return next;
+    return next();
   } else {
     res.status(400).json({ error: "Rating is required" });
   }
 };
 
 const checkBoolean = (req, res, next) => {
-  if (req.body.discontinued) {
-    return next;
+  const discont = req.body.discontinued;
+  if (typeof discont === "boolean") {
+    next();
   } else {
-    res.status(400).json({ error: "Boolean is required" });
+    res.status(400).json({ error: "discontinued must be type boolean" });
   }
 };
 
 const checkGameStudio = (req, res, next) => {
   if (req.body.game_studio) {
-    return next;
+    return next();
   } else {
     res.status(400).json({ error: "Game studio id required" });
   }
@@ -48,7 +49,7 @@ const checkGameStudio = (req, res, next) => {
 
 const checkSystem = (req, res, next) => {
   if (req.body.system) {
-    return next;
+    return next();
   } else {
     res.status(400).json({ error: "System is required" });
   }
